@@ -15,21 +15,22 @@ public class AnagramsInputOutputStreamImpl implements Runnable {
     public static final String REGEX = "[^\"\\s]+|\"(\\\\.|[^\\\\\"])*\"";
     public static final String PROMPT = "> ";
     public static final String EXITING_TEXT = "Exiting";
-    public static final String USAGE_TEXT = "Usage:\n"
-            + "To check if two words are anagrams write 1 followed by the two words.\n"
-            + "Examples:\n"
-            + "\t1 evil vile\n"
-            + "\tOutput: true\n"
-            + "\t1 evil bad\n"
-            + "\tOutput: false\n"
-            + "To retrieve anagrams of a word in the set of inputs of the Feature#1 write 2 followed by that word\n"
-            + "Examples:\n"
-            + "\t2 evil\n"
-            + "\tOutput: [vile]\n"
-            + "\t2 bad\n"
-            + "\tOutput: []\n"
-            + "\n"
-            + "To exit, press CTRL+D in an empty line.";
+    public static final String USAGE_TEXT = """
+            Usage:
+            To check if two sentences are anagrams write 1 followed by the two sentences.
+            Examples:
+            \t1 evil vile
+            \tOutput: true
+            \t1 evil bad
+            \tOutput: false
+            To retrieve anagrams of a word in the set of inputs of the Feature#1 write 2 followed by that word
+            Examples:
+            \t2 evil
+            \tOutput: [vile]
+            \t2 bad
+            \tOutput: []
+
+            To exit, press CTRL+D in an empty line.""";
 
     private final InputStream inputStream;
     private final PrintStream outputStream;
@@ -43,9 +44,9 @@ public class AnagramsInputOutputStreamImpl implements Runnable {
     }
 
     private void loop() {
+        Scanner scanner = new Scanner(inputStream);
         while (true) {
             outputStream.print(PROMPT);
-            Scanner scanner = new Scanner(inputStream);
             int operation;
             try {
                 operation = scanner.nextInt();

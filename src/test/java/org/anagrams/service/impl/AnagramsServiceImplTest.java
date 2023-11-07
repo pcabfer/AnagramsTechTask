@@ -11,10 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static java.util.function.Predicate.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -68,7 +70,7 @@ class AnagramsServiceImplTest {
         NormalizedString argument = new NormalizedString("evil");
         Set<NormalizedString> returnedSet = anagramsServiceImpl.getPreviousAnagrams(argument);
 
-        Set<NormalizedString> expectedReturnedSet = normalizedResultSet.stream().filter(Predicate.not(argument::equals)).collect(Collectors.toSet());
+        Set<NormalizedString> expectedReturnedSet = normalizedResultSet.stream().filter(not(argument::equals)).collect(Collectors.toSet());
         assertEquals(expectedReturnedSet, returnedSet);
     }
 }

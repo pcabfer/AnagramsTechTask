@@ -8,7 +8,7 @@ public class NormalizedString {
     private final String normalizedString;
 
     public NormalizedString(String str) {
-        this.normalizedString = str.strip().replaceAll("[^A-z ]", "").toLowerCase();
+        this.normalizedString = str.strip().replaceAll("[^A-z ]", "");
     }
 
     @Override

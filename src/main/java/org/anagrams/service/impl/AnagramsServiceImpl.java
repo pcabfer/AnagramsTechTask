@@ -8,8 +8,9 @@ import org.anagrams.service.AnagramsService;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static java.util.function.Predicate.not;
 
 @RequiredArgsConstructor
 public class AnagramsServiceImpl implements AnagramsService {
@@ -29,7 +30,7 @@ public class AnagramsServiceImpl implements AnagramsService {
     @Override
     public Set<NormalizedString> getPreviousAnagrams(NormalizedString word) {
         return anagramsRepository.findOriginalWordsBySortedWord(new SortedString(word.toString()))
-                .map(originalWords -> originalWords.stream().filter(Predicate.not(word::equals)).collect(Collectors.toSet()))
+                .map(originalWords -> originalWords.stream().filter(not(word::equals)).collect(Collectors.toSet()))
                 .orElseGet(HashSet::new);
     }
 

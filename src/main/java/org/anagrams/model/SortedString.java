@@ -2,8 +2,6 @@ package org.anagrams.model;
 
 import lombok.EqualsAndHashCode;
 
-import java.util.function.Predicate;
-
 @EqualsAndHashCode(cacheStrategy = EqualsAndHashCode.CacheStrategy.LAZY)
 public class SortedString {
     public final String sortedString;
@@ -11,6 +9,7 @@ public class SortedString {
     public SortedString(String str) {
         this.sortedString = str.chars()
                 .filter(codePoint -> !Character.isWhitespace(codePoint))
+                .map(Character::toLowerCase)
                 .sorted()
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
